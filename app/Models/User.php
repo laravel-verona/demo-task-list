@@ -1,18 +1,15 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Auth\Authenticatable;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
-class User extends Model implements AuthenticatableContract,
-                                    AuthorizableContract,
-                                    CanResetPasswordContract
+class User extends BaseModel implements AuthenticatableContract, AuthorizableContract, CanResetPasswordContract
 {
     use Authenticatable, Authorizable, CanResetPassword;
 
@@ -37,29 +34,27 @@ class User extends Model implements AuthenticatableContract,
      */
     protected $hidden = ['password', 'remember_token', 'id'];
 
-    /**
-     * Relations
-     */
+    protected $authors = false;
+
+    /*
+    |--------------------------------------------------------------------------
+    | RELATIONS
+    |--------------------------------------------------------------------------
+    */
     public function tasks()
     {
-        return $this->hasMany('App\Task', 'created_by', 'id');
+        return $this->hasMany(Task::class, 'created_by');
     }
 
-    /**
-     * Attributes
-     */
+    /*
+    |--------------------------------------------------------------------------
+    | ACCESSORS & MUTATORS
+    |--------------------------------------------------------------------------
+    */
     public function getGravatarUrlAttribute()
     {
         $hash = md5(strtolower(trim($this->attributes['email'])));
 
         return "http://www.gravatar.com/avatar/{$hash}";
-    }
-
-    /**
-     * Utility
-     */
-    public function setGravatar()
-    {
-        $this->attributes['gravatar_url'] = $this->gravatar_url;
     }
 }

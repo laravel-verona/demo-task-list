@@ -16,10 +16,9 @@ class CreateTasksTable extends Migration
             $table->increments('id');
             $table->text('name');
             $table->boolean('done')->default(false);
-            $table->integer('created_by')->unsigned()->index();
             $table->timestamps();
 
-            $table->foreign('created_by')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+            createAuthorsFields($table);
         });
     }
 
