@@ -26,55 +26,98 @@ class Tasks {
         return call_user_func_array([$me, $name], $arguments);
     }
 
-    public function add($task)
+    /**
+     * Crea un nuovo task
+     *
+     * @param String $task_text
+     * @return  \Todo\Task
+     */
+    public function add($task_text)
     {
         $user = Auth::user();
         $task = $this->task_repo->create($user, [
-            'task' => $task,
+            'task' => $task_text,
         ]);
 
         $this->event($task, 'created');
+
+        return $this->formatResponse($task);
     }
 
-    public function update($id, $task)
+    /**
+     * Aggiorna un task esistente
+     *
+     * @param  Integer $id
+     * @param  String   $task_text
+     * @return   \Todo\Task
+     */
+    public function update($id, $task_text)
     {
         $task = $this->task_repo->update($id, [
-            'task' => $task,
+            'task' => $task_text,
         ]);
 
         $this->event($task);
+
+        return $this->formatResponse($task);
     }
 
+    /**
+     * Cancella un task
+     *
+     * @param  Integer $id
+     * @return   \Todo\Task
+     */
     public function delete($id)
     {
         $task = $this->task_repo->destroy($id);
 
         $this->event($task, 'deleted');
+
+        return $this->formatResponse($task);
     }
 
-    public function done($id)
+    /**
+     * Setta un task completato o no
+     *
+     * @param  Integer    $id
+     * @param  Boolean  $flag
+     * @return   \Todo\Task
+     */
+    public function done($id, $flag)
     {
         $task = $this->task_repo->update($id, [
-            'done' => true,
+            'done' => $flag,
         ]);
 
         $this->event($task);
+
+        return $this->formatResponse($task);
     }
 
-    public function undone($id)
-    {
-        $task = $this->task_repo->update($id, [
-            'done' => false,
-        ]);
-
-        $this->event($task);
-    }
-
-    protected function event($task, $type = 'updated')
+    /**
+     * Crea evento laravel
+     * @param  \Todo\Task $task
+     * @param  String          $type
+     */
+    protected function event(\Todo\Task $task, $type = 'updated')
     {
         $class = "Todo\Events\Task" . ucfirst($type);
         $event = new $class($task);
 
         event($event);
+    }
+
+    /**
+     * Formatta l'oggetto task per la risposta
+     *
+     * @param  \Todo\Task $task
+     * @return   \Todo\Task
+     */
+    protected function formatResponse(\Todo\Task $task)
+    {
+        $task->load('author');
+
+        return $task;
     }
 }
