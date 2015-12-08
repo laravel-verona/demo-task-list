@@ -14,16 +14,12 @@ class CreateTasksTable extends Migration
     {
         Schema::create('tasks', function (Blueprint $table) {
             $table->increments('id');
-            $table->text('task');
+            $table->text('name');
             $table->boolean('done')->default(false);
             $table->integer('created_by')->unsigned()->index();
             $table->timestamps();
-        });
 
-        Schema::table('tasks', function($table) {
-            $table->foreign('created_by')
-                        ->references('id')->on('users')
-                        ->onDelete('cascade');
+            $table->foreign('created_by')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

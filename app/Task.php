@@ -18,7 +18,7 @@ class Task extends Model {
      *
      * @var array
      */
-    protected $fillable = ['task', 'done', 'created_by'];
+    protected $fillable = ['name', 'done', 'created_by'];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -32,6 +32,6 @@ class Task extends Model {
      */
     public function author()
     {
-        return $this->belongsTo('Todo\User', 'created_by', 'id');
+        return $this->belongsTo(User::class, 'created_by');
     }
 }
