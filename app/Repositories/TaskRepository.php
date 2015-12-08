@@ -8,6 +8,11 @@ use Todo\Support\Repository;
 
 class TaskRepository extends Repository {
 
+    /**
+     * Namespace Model
+     *
+     * @var String
+     */
     protected $model = Task::class;
 
     /**
