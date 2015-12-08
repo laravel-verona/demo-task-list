@@ -21,6 +21,13 @@ class Task extends Model {
     protected $fillable = ['task', 'done', 'created_by'];
 
     /**
+     * The attributes excluded from the model's JSON form.
+     *
+     * @var array
+     */
+    protected $hidden = ['id', 'created_by'];
+
+    /**
      * Relations
      */
     public function author()
