@@ -1,16 +1,16 @@
 <?php
 
-namespace Todo\Tasks;
+namespace App\Tasks;
 
 use Auth;
-use Todo\Repositories\TaskRepository;
+use App\Repositories\TaskRepository;
 
 class Tasks {
 
     /**
      * Task Repository
      *
-     * @var Todo\Repositories\TaskRepository
+     * @var App\Repositories\TaskRepository
      */
     protected $task_repo;
 
@@ -21,7 +21,7 @@ class Tasks {
 
     public static function __callStatic($name, $arguments)
     {
-        $me = app('Todo\Tasks\Tasks');
+        $me = app('App\Tasks\Tasks');
 
         return call_user_func_array([$me, $name], $arguments);
     }
@@ -30,7 +30,7 @@ class Tasks {
      * Crea un nuovo task
      *
      * @param String $task_text
-     * @return  \Todo\Task
+     * @return  \App\Task
      */
     public function add($task_text)
     {
@@ -49,7 +49,7 @@ class Tasks {
      *
      * @param  Integer $id
      * @param  String   $task_text
-     * @return   \Todo\Task
+     * @return   \App\Task
      */
     public function update($id, $task_text)
     {
@@ -66,7 +66,7 @@ class Tasks {
      * Cancella un task
      *
      * @param  Integer $id
-     * @return   \Todo\Task
+     * @return   \App\Task
      */
     public function delete($id)
     {
@@ -82,7 +82,7 @@ class Tasks {
      *
      * @param  Integer    $id
      * @param  Boolean  $flag
-     * @return   \Todo\Task
+     * @return   \App\Task
      */
     public function done($id, $flag)
     {
@@ -97,12 +97,12 @@ class Tasks {
 
     /**
      * Crea evento laravel
-     * @param  \Todo\Task $task
+     * @param  \App\Task $task
      * @param  String          $type
      */
-    protected function event(\Todo\Task $task, $type = 'updated')
+    protected function event(\App\Task $task, $type = 'updated')
     {
-        $class = "Todo\Events\Task" . ucfirst($type);
+        $class = "App\Events\Task" . ucfirst($type);
         $event = new $class($task);
 
         event($event);
@@ -111,10 +111,10 @@ class Tasks {
     /**
      * Formatta l'oggetto task per la risposta
      *
-     * @param  \Todo\Task $task
-     * @return   \Todo\Task
+     * @param  \App\Task $task
+     * @return   \App\Task
      */
-    protected function formatResponse(\Todo\Task $task)
+    protected function formatResponse(\App\Task $task)
     {
         $task->load('author');
         $task->author->setGravatar();

@@ -1,6 +1,6 @@
 <?php
 
-namespace Todo\Exceptions;
+namespace App\Exceptions;
 
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;

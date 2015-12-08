@@ -1,8 +1,8 @@
 <?php
 
-namespace Todo\Http\Requests;
+namespace App\Http\Requests;
 
-use Todo\Http\Requests\Request;
+use App\Http\Requests\Request;
 
 class StoreTaskRequest extends Request
 {

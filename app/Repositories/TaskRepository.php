@@ -1,12 +1,11 @@
 <?php
 
-namespace Todo\Repositories;
+namespace App\Repositories;
 
-use Todo\Task;
-use Todo\User;
-use Todo\Support\Repository;
+use App\Task;
+use App\User;
 
-class TaskRepository extends Repository {
+class TaskRepository {
 
     /**
      * Namespace Model

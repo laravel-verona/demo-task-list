@@ -1,6 +1,6 @@
 <?php
 
-namespace Todo;
+namespace App;
 
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
@@ -42,7 +42,7 @@ class User extends Model implements AuthenticatableContract,
      */
     public function tasks()
     {
-        return $this->hasMany('Todo\Task', 'created_by', 'id');
+        return $this->hasMany('App\Task', 'created_by', 'id');
     }
 
     /**

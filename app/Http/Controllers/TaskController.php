@@ -1,13 +1,12 @@
 <?php
 
-namespace Todo\Http\Controllers;
+namespace App\Http\Controllers;
 
-use Tasks, Auth;
-
+use App\Task;
 use Illuminate\Http\Request;
-use Todo\Http\Requests;
-use Todo\Http\Controllers\Controller;
-use Todo\Repositories\TaskRepository;
+use App\Http\Requests;
+use App\Http\Controllers\Controller;
+use App\Repositories\TaskRepository;
 
 class TaskController extends Controller
 {
@@ -25,7 +24,7 @@ class TaskController extends Controller
      */
     public function index(TaskRepository $task_repo)
     {
-        $tasks = $task_repo->all('author');
+        $tasks = Task::orderBy('created_at', 'desc')->get();
 
         return view('tasks.index', compact('tasks'));
     }

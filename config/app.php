@@ -145,10 +145,10 @@ return [
         /*
          * Application Service Providers...
          */
-        Todo\Providers\AppServiceProvider::class,
-        Todo\Providers\AuthServiceProvider::class,
-        Todo\Providers\EventServiceProvider::class,
-        Todo\Providers\RouteServiceProvider::class,
+        App\Providers\AppServiceProvider::class,
+        App\Providers\AuthServiceProvider::class,
+        App\Providers\EventServiceProvider::class,
+        App\Providers\RouteServiceProvider::class,
     ],
 
     /*
@@ -199,7 +199,6 @@ return [
         'View'      => Illuminate\Support\Facades\View::class,
         'Form'      => Collective\Html\FormFacade::class,
         'Html'      => Collective\Html\HtmlFacade::class,
-        'Tasks'     => Todo\Support\Facades\Tasks::class,
     ],
 
 ];

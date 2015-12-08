@@ -1,6 +1,6 @@
 <?php
 
-namespace Todo\Providers;
+namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
