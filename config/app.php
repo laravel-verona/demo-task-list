@@ -138,18 +138,17 @@ return [
         Illuminate\View\ViewServiceProvider::class,
 
         /*
+         * Packages Service Providers...
+         */
+        Collective\Html\HtmlServiceProvider::class,
+
+        /*
          * Application Service Providers...
          */
         Todo\Providers\AppServiceProvider::class,
         Todo\Providers\AuthServiceProvider::class,
         Todo\Providers\EventServiceProvider::class,
         Todo\Providers\RouteServiceProvider::class,
-
-        /*
-         * Packages providers
-         */
-        Collective\Html\HtmlServiceProvider::class,
-
     ],
 
     /*
@@ -198,9 +197,9 @@ return [
         'URL'       => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View'      => Illuminate\Support\Facades\View::class,
-        'Form'     => Collective\Html\FormFacade::class,
+        'Form'      => Collective\Html\FormFacade::class,
         'Html'      => Collective\Html\HtmlFacade::class,
-        'Tasks'   =>  Todo\Support\Facades\Tasks::class,
+        'Tasks'     => Todo\Support\Facades\Tasks::class,
     ],
 
 ];
