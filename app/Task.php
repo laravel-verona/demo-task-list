@@ -25,7 +25,7 @@ class Task extends Model {
      *
      * @var array
      */
-    protected $hidden = ['id', 'created_by'];
+    protected $hidden = ['created_by'];
 
     /**
      * Relations

@@ -117,6 +117,7 @@ class Tasks {
     protected function formatResponse(\Todo\Task $task)
     {
         $task->load('author');
+        $task->author->setGravatar();
 
         return $task;
     }

@@ -54,4 +54,12 @@ class User extends Model implements AuthenticatableContract,
 
         return "http://www.gravatar.com/avatar/{$hash}";
     }
+
+    /**
+     * Utility
+     */
+    public function setGravatar()
+    {
+        $this->attributes['gravatar_url'] = $this->gravatar_url;
+    }
 }
