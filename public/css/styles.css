@@ -4,11 +4,64 @@ body {
 
 /*
 |--------------------------------------------------------------------------
-| NAVBAR
+| RESET
 |--------------------------------------------------------------------------
 */
-.navbar .navbar-code a {
-    font-size: 30px;
-    padding-top: 10px;
-    padding-bottom: 10px;
+.page-header {
+    margin-top: 10px;
+}
+
+/*
+|--------------------------------------------------------------------------
+| UTILITY
+|--------------------------------------------------------------------------
+*/
+td.empty {
+    color: #999;
+    font-size: 1.5em;
+    text-align: center;
+}
+
+/*
+|--------------------------------------------------------------------------
+| AUTH
+|--------------------------------------------------------------------------
+*/
+.auth-cont .auth-actions {
+    margin-top: 20px;
+    text-align: center;
+}
+.auth-cont .login-cont .form-control {
+    position: relative;
+    height: auto;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 10px;
+    font-size: 16px;
+}
+.auth-cont .login-cont .form-control:focus {
+    z-index: 2;
+}
+.auth-cont .login-cont input[type="email"] {
+    margin-bottom: -1px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+.auth-cont .login-cont input[type="password"] {
+    margin-bottom: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+.auth-cont .register-cont input {
+    margin-bottom: 15px;
+}
+
+/*
+|--------------------------------------------------------------------------
+| TASKS
+|--------------------------------------------------------------------------
+*/
+.tasks-list {
+    margin-top: 30px;
 }

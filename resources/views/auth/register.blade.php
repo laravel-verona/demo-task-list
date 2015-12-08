@@ -1,18 +1,26 @@
-@extends('layout')
+@extends('auth.layout')
 
-@section('content')
+@section('body')
+<div class="form-cont register-cont">
+    {!! Form::open(['route' => 'auth.register']) !!}
+        <h2 class="page-header">{{ trans('app.auth.register.title') }}</h2>
 
-<div class="row">
-    <div class="col-md-6 col-md-offset-3">
-        {!! Form::open(['route' => 'auth.register']) !!}
-            <h2 class="form-signin-heading">Please sign in</h2>
-            {!! Form::text('name', old('name'), ['class' => 'form-control', 'required' => true, 'placeholder' => 'Name']) !!}
-            {!! Form::email('email', old('email'), ['class' => 'form-control', 'required' => true, 'placeholder' => 'Email']) !!}
-            {!! Form::password('password', ['class' => 'form-control', 'required' => true, 'placeholder' => 'Password']) !!}
-            {!! Form::password('password_confirmation', ['class' => 'form-control', 'required' => true, 'placeholder' => 'Password confirmation']) !!}
+        @include('partials.alert')
 
-            {!! Form::submit('Sign up', ['class' => 'btn btn-lg btn-primary btn-block']) !!}
-        {!! Form::close() !!}
+        {!! Form::text('name', null, ['class' => 'form-control input-lg', 'placeholder' => trans('app.auth.register.fields.name'), 'autofocus' => true]) !!}
+        {!! Form::email('email', null, ['class' => 'form-control input-lg', 'placeholder' => trans('app.auth.register.fields.email')]) !!}
+        {!! Form::password('password', ['class' => 'form-control input-lg', 'placeholder' => trans('app.auth.register.fields.password')]) !!}
+        {!! Form::password('password_confirmation', ['class' => 'form-control input-lg', 'placeholder' => trans('app.auth.register.fields.password_confirmation')]) !!}
+
+        <button type="submit" class="btn btn-block btn-lg btn-primary">
+            {{ trans('app.auth.register.submit') }}
+        </button>
+    {!! Form::close() !!}
+
+    <div class="auth-actions">
+        <a href="{{ route('auth.login') }}">
+            {{ trans('app.auth.register.login') }}
+        </a>
     </div>
 </div>
 @endsection

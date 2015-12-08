@@ -10,6 +10,8 @@ use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
 class AuthController extends Controller
 {
+    protected $redirectPath = '/';
+
     /*
     |--------------------------------------------------------------------------
     | Registration & Login Controller
@@ -30,6 +32,8 @@ class AuthController extends Controller
      */
     public function __construct()
     {
+        parent::__construct();
+
         $this->middleware('guest', ['except' => 'getLogout']);
     }
 

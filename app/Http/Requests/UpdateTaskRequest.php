@@ -24,7 +24,7 @@ class UpdateTaskRequest extends Request
     public function rules()
     {
         return [
-            'task'  => 'sometimes|required|max:255',
+            'task' => 'sometimes|required|max:255',
             'done' => 'boolean',
         ];
     }

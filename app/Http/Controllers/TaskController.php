@@ -13,6 +13,8 @@ class TaskController extends Controller
 {
     public function __construct()
     {
+        parent::__construct();
+
         $this->middleware('auth');
     }
 
@@ -25,7 +27,7 @@ class TaskController extends Controller
     {
         $tasks = $task_repo->all('author');
 
-        return view('task.index', compact('tasks'));
+        return view('tasks.index', compact('tasks'));
     }
 
     /**

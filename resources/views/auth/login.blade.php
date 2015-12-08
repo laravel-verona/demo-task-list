@@ -1,22 +1,28 @@
-@extends('layout')
+@extends('auth.layout')
 
-@section('content')
+@section('body')
+<div class="form-cont login-cont">
+    {!! Form::open(['route' => 'auth.login']) !!}
+        <h2 class="page-header">{{ trans('app.auth.login.title') }}</h2>
 
-<div class="row">
-    <div class="col-md-6 col-md-offset-3">
-        {!! Form::open(['route' => 'auth.login']) !!}
-            <h2 class="form-signin-heading">Please sign in</h2>
-            {!! Form::email('email', old('email'), ['class' => 'form-control', 'required' => true, 'placeholder' => 'Email']) !!}
-            {!! Form::password('password', ['class' => 'form-control', 'required' => true, 'placeholder' => 'Password']) !!}
-            <div class="checkbox">
-                <label>
-                    {!! Form::checkbox('remember', true) !!}
-                    Remember me
-                </label>
-            </div>
+        @include('partials.alert')
 
-            {!! Form::submit('Sign in', ['class' => 'btn btn-lg btn-primary btn-block']) !!}
-        {!! Form::close() !!}
+        {!! Form::email('email', null, ['class' => 'form-control', 'placeholder' => trans('app.auth.login.fields.email'), 'autofocus' => true]) !!}
+        {!! Form::password('password', ['class' => 'form-control', 'placeholder' => trans('app.auth.login.fields.password')]) !!}
+
+        <div class="checkbox">
+            <label>
+                {!! Form::checkbox('remember', true) !!} {{ trans('app.auth.login.remember') }}
+            </label>
+        </div>
+
+        <button type="submit" class="btn btn-block btn-lg btn-primary">
+            {{ trans('app.auth.login.submit') }}
+        </button>
+    {!! Form::close() !!}
+
+    <div class="auth-actions">
+        <a href="{{ route('auth.register') }}">{{ trans('app.auth.login.register') }}</a>
     </div>
 </div>
 @endsection

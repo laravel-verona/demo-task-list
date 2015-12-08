@@ -24,7 +24,7 @@ class StoreTaskRequest extends Request
     public function rules()
     {
         return [
-            'task'  => 'required|max:255',
+            'task' => 'required|max:255',
             'done' => 'boolean',
         ];
     }
