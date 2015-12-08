@@ -4,8 +4,11 @@ namespace Todo\Repositories;
 
 use Todo\Task;
 use Todo\User;
+use Todo\Support\Repository;
 
-class TaskRepository {
+class TaskRepository extends Repository {
+
+    protected $model = Task::class;
 
     /**
      * Crea un task
@@ -54,36 +57,5 @@ class TaskRepository {
         $task->delete();
 
         return $task;
-    }
-
-    /**
-     * Tutti i tasks registrati
-     *
-     * @param  Mixed $with
-     * @return   Collection
-     */
-    public function all($with = null)
-    {
-         $query = Task::query();
-
-         if ($with) $query->with($with);
-
-         return $query->get();
-    }
-
-    /**
-     * Trova un task per id
-     *
-     * @param  Integer $id
-     * @param  String   $with
-     * @return   Task
-     */
-    public function find($id, $with = null)
-    {
-        $query = Task::where('id', $id);
-
-        if ($with) $query->with($with);
-
-        return $query->firstOrFail();
     }
 }
