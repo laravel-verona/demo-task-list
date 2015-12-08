@@ -13,9 +13,17 @@ class CreateTasksTable extends Migration
     public function up()
     {
         Schema::create('tasks', function (Blueprint $table) {
+            $table->increments('id');
             $table->text('task');
             $table->boolean('done')->default(false);
+            $table->integer('created_by')->unsigned()->index();
             $table->timestamps();
+        });
+
+        Schema::table('tasks', function($table) {
+            $table->foreign('created_by')
+                        ->references('id')->on('users')
+                        ->onDelete('cascade');
         });
     }
 
@@ -26,6 +34,6 @@ class CreateTasksTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('tasks');
     }
 }

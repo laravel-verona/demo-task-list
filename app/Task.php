@@ -18,5 +18,13 @@ class Task extends Model {
      *
      * @var array
      */
-    protected $fillable = ['task', 'done'];
+    protected $fillable = ['task', 'done', 'created_by'];
+
+    /**
+     * Relations
+     */
+    public function author()
+    {
+        return $this->belongsTo('Todo\User', 'created_by', 'id');
+    }
 }
