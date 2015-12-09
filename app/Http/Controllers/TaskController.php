@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Task;
-use Illuminate\Http\Request;
+use App\Models\Task;
 use App\Http\Requests;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Repositories\TaskRepository;
 
 class TaskController extends Controller
 {
@@ -22,7 +21,7 @@ class TaskController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(TaskRepository $task_repo)
+    public function index()
     {
         $tasks = Task::orderBy('created_at', 'desc')->get();
 
@@ -45,12 +44,12 @@ class TaskController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Requests\StoreTaskRequest $request)
+    public function store(Requests\TaskCreateRequest $request)
     {
-        $task_text = $request->get('task');
-        $task         = Tasks::add($task_text);
+        $name = $request->get('name');
+        $task = Task::create(compact('name'));
 
-        return response($task, 201);
+        return redirect()->back()->with('success', trans('app.tasks.message.create_success'));
     }
 
     /**
@@ -82,21 +81,14 @@ class TaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Requests\UpdateTaskRequest $request, $id)
+    public function update(Requests\TaskUpdateRequest $request, $id)
     {
-        if ($request->has('done'))
-        {
-            $done = $request->get('done');
-            $task  = Tasks::done($id, $done);
-        }
+        $task = Task::findOrFail($id);
 
-        if ($request->has('task'))
-        {
-            $task_text = $request->get('task');
-            $task         = Tasks::update($id, $task_text);
-        }
+        $task->done = $request->get('done');
+        $task->save();
 
-         return response($task, 200);
+         return redirect()->back()->with('success', trans('app.tasks.message.update_success'));
     }
 
     /**
@@ -107,8 +99,8 @@ class TaskController extends Controller
      */
     public function destroy($id)
     {
-        $task = Tasks::delete($id);
+        Task::destroy($id);
 
-        return response($task, 200);
+        return redirect()->back()->with('success', trans('app.tasks.message.delete_success'));
     }
 }

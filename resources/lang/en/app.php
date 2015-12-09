@@ -25,7 +25,9 @@ return [
     'common' => [
         'author'     => 'Author',
         'editor'     => 'Editor',
+        'created_at' => 'Created at',
         'created_by' => 'Created by',
+        'updated_at' => 'Updated at',
         'updated_by' => 'Updated by',
     ],
 
@@ -75,6 +77,12 @@ return [
         'fields' => [
             'name' => 'Name',
             'done' => 'Done',
+        ],
+
+        'message' => [
+            'create_success' => 'Task created successfully.',
+            'update_success' => 'Task updated successfully.',
+            'delete_success' => 'Task deleted successfully.',
         ],
     ],
 

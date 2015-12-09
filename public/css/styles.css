@@ -21,6 +21,16 @@ td.empty {
     font-size: 1.5em;
     text-align: center;
 }
+td.actions {
+    min-width: 80px;
+    text-align: right;
+}
+td.actions .btn {
+    min-width: 22px;
+}
+td.actions form {
+    display: inline-block;
+}
 
 /*
 |--------------------------------------------------------------------------
@@ -64,4 +74,8 @@ td.empty {
 */
 .tasks-list {
     margin-top: 30px;
+}
+.tasks-list tr.done td {
+    color: #cccccc;
+    text-decoration: line-through;
 }

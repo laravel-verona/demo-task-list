@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
 
-class UpdateTaskRequest extends Request
+class TaskUpdateRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,7 @@ class UpdateTaskRequest extends Request
     public function rules()
     {
         return [
-            'task' => 'sometimes|required|max:255',
+            'name' => 'sometimes|required|max:255',
             'done' => 'boolean',
         ];
     }

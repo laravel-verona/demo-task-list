@@ -22,7 +22,7 @@
 
                     <ul class="dropdown-menu">
                         <li>
-                            <a href="{{ route('auth.logout') }}">
+                            <a href="{{ url('auth/logout') }}">
                                 {{ trans('app.auth.logout') }}
                             </a>
                         </li>

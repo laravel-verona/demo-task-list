@@ -2,7 +2,7 @@
 
 @section('body')
 <div class="form-cont login-cont">
-    {!! Form::open(['route' => 'auth.login']) !!}
+    {!! Form::open() !!}
         <h2 class="page-header">{{ trans('app.auth.login.title') }}</h2>
 
         @include('partials.alert')
@@ -22,7 +22,7 @@
     {!! Form::close() !!}
 
     <div class="auth-actions">
-        <a href="{{ route('auth.register') }}">{{ trans('app.auth.login.register') }}</a>
+        <a href="{{ url('auth/register') }}">{{ trans('app.auth.login.register') }}</a>
     </div>
 </div>
 @endsection
