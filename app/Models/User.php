@@ -34,11 +34,17 @@ class User extends BaseModel implements AuthenticatableContract, AuthorizableCon
      */
     protected $hidden = ['password', 'remember_token', 'id'];
 
+    /**
+     * Indica se devono essere salvate automaticamente le informazioni
+     * sull'autore del record.
+     *
+     * @var bool
+     */
     protected $authors = false;
 
     /*
     |--------------------------------------------------------------------------
-    | RELATIONS
+    | RELATIONSHIPS
     |--------------------------------------------------------------------------
     */
     public function tasks()

@@ -16,18 +16,13 @@ class Task extends BaseModel
      *
      * @var array
      */
-    protected $fillable = ['name', 'done', 'created_by'];
+    protected $fillable = ['name', 'done'];
 
-    /**
-     * The attributes excluded from the model's JSON form.
-     *
-     * @var array
-     */
-    protected $hidden = ['created_by'];
-
-    /**
-     * Relations
-     */
+    /*
+    |--------------------------------------------------------------------------
+    | RELATIONSHIPS
+    |--------------------------------------------------------------------------
+    */
     public function author()
     {
         return $this->belongsTo(User::class, 'created_by');

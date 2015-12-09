@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Task;
 use App\Http\Requests;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
 class TaskController extends Controller
 {
@@ -88,7 +86,7 @@ class TaskController extends Controller
         $task->done = $request->get('done');
         $task->save();
 
-         return redirect()->back()->with('success', trans('app.tasks.message.update_success'));
+        return redirect()->back()->with('success', trans('app.tasks.message.update_success'));
     }
 
     /**
