@@ -5,3 +5,4 @@ Homestead.json
 .env
 composer.lock
 npm-debug.log
+.php_cs.cache
