@@ -3,6 +3,8 @@
 Homestead.yaml
 Homestead.json
 .env
+.DS_Store
+Thumbs.db
+composer.phar
 composer.lock
-npm-debug.log
 .php_cs.cache
