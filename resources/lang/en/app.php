@@ -30,6 +30,7 @@ return [
         'created_by' => 'Created by',
         'updated_at' => 'Updated at',
         'updated_by' => 'Updated by',
+        'confirm'    => 'Are you sure you want to continue?',
     ],
 
     /*

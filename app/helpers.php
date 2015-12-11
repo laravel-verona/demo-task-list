@@ -37,7 +37,7 @@ if (! function_exists('formDelete')) {
     function formDelete($url)
     {
         $form = Form::open(['url' => $url, 'method' => 'DELETE', 'class' => 'form-delete']);
-        $form .= '<button type="submit" class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-remove"></span></button>';
+        $form .= '<button type="submit" class="btn btn-xs btn-danger" data-confirm="'.trans('app.common.confirm').'"><span class="glyphicon glyphicon-remove"></span></button>';
         $form .= Form::close();
 
         return $form;
