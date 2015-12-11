@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Task;
 use App\Http\Requests;
 use App\Contracts\TaskContract as TaskRepository;
 
