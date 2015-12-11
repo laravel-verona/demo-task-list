@@ -21,3 +21,4 @@ Route::controllers([
 ]);
 
 Route::resource('tasks', 'TaskController', ['only' => ['index', 'store', 'update', 'destroy']]);
+Route::resource('users', 'UserController', ['only' => ['index']]);
