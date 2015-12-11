@@ -83,7 +83,11 @@ class TaskController extends Controller
     {
         $task = Task::findOrFail($id);
 
-        $task->done = $request->get('done');
+        if ($request->has('name')) {
+            $task->name = $request->get('name');
+        }
+
+        $task->done = $request->has('done');
         $task->save();
 
         return redirect()->back()->with('success', trans('app.tasks.message.update_success'));

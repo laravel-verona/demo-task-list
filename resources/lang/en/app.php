@@ -15,6 +15,7 @@ return [
         'update' => 'Update',
         'delete' => 'Delete',
         'save'   => 'Save',
+        'close'  => 'Close',
     ],
 
     /*
@@ -71,6 +72,7 @@ return [
     */
     'tasks' => [
         'title'  => 'Tasks',
+        'sing'   => 'Task',
         'insert' => 'Insert a new task here ...',
         'empty'  => 'No task was created yet',
 

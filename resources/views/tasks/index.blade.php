@@ -38,7 +38,9 @@
                             {!! Form::close() !!}
                         </td>
                         <td class="col-md-6">
-                            {{ $task->name }}
+                            <a href="#" class="task-name" data-toggle="modal" data-target="#taskModal" data-id="{{ $task->id }}" data-name="{{ $task->name }}" data-url="{{ route('tasks.update', $task->id) }}">
+                                {{ $task->name }}
+                            </a>
                         </td>
                         <td class="col-md-3">
                             {{ $task->author->name }}
@@ -60,14 +62,46 @@
         </div>
     </div>
 </div>
+
+
+<div class="modal fade" id="taskModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            {!! Form::open(['method' => 'PUT', 'class' => 'task-update']) !!}
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">{{ trans('app.tasks.sing') }}</h4>
+                </div>
+                <div class="modal-body">
+                    {!! Form::text('name', null, ['class' => 'form-control']) !!}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">{{ trans('app.actions.close') }}</button>
+                    <button type="submit" class="btn btn-primary">{{ trans('app.actions.save') }}</button>
+                </div>
+            {!! Form::close() !!}
+        </div>
+    </div>
+</div>
 @endsection
 
 @section('scripts')
 <script>
 $(function()
 {
-    $(document).on('change', 'input[name=done]', function(e) {
+    $('input[name=done]').on('change', function(event) {
         $(this).parent().submit();
+    });
+
+    $('#taskModal').on('show.bs.modal', function(event) {
+      var link = $(event.relatedTarget);
+
+      $(this).find('.modal-body input').val(link.data('name'));
+      $(this).find('.modal-content form').attr('action', link.data('url'));
+    });
+
+    $('#taskModal').on('shown.bs.modal', function(event) {
+      $(this).find('.modal-body input').focus().select();
     });
 })
 </script>
