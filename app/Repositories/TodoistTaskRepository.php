@@ -2,23 +2,27 @@
 
 namespace App\Repositories;
 
+use Carbon\Carbon;
+use App\Models\User;
 use App\Models\Task;
-use GuzzleHttp\ClientInterface;
+use Ramsey\Uuid\Uuid;
+use GuzzleHttp\Client;
+use GuzzleHttp\Psr7\Response;
 use App\Contracts\TaskContract;
 use Illuminate\Support\Collection;
 
 class TodoistTaskRepository implements TaskContract
 {
-    /**
-     * Guzzle client instance.
-     *
-     * @var \GuzzleHttp\ClientInterface
-     */
+    protected $token;
     protected $client;
+    protected $projectId;
 
-    public function __construct(ClientInterface $client)
+    public function __construct()
     {
-        $this->client = $client;
+        $this->client = $this->getClient();
+
+        $this->token = env('TODOIST_TOKEN');
+        $this->projectId = env('TODOIST_PROJECT');
     }
 
     /**
@@ -28,22 +32,14 @@ class TodoistTaskRepository implements TaskContract
      */
     public function all()
     {
-
-        $response = $this->client->get('getUncompletedItems');
-        $items = json_decode($response->getBody());
         $tasks = [];
+        $response = $this->client->get('sync');
 
-        foreach ($items as $item) {
-            $tasks[] = new Task([
-                'id'   => $item->id,
-                'name' => $item->content,
-                'done' => $item->is_archived,
-            ]);
+        if ($response->getStatusCode() != 200) {
+            throw new \Exception('Error Processing Request');
         }
 
-        // dd($tasks);
-
-        return new Collection($tasks);
+        return $this->getTaskResource($response);
     }
 
     /**
@@ -54,7 +50,7 @@ class TodoistTaskRepository implements TaskContract
      */
     public function find($id)
     {
-        return $this->model->findOrFail($id);
+        return $this->all()[$id];
     }
 
     /**
@@ -65,7 +61,15 @@ class TodoistTaskRepository implements TaskContract
      */
     public function create(array $input)
     {
-        return $this->model->create($input);
+        $params = $this->setClientParamsByAction('item_add', [
+            'content' => array_get($input, 'name'),
+        ]);
+
+        $response = $this->client->post('sync', [
+            'form_params' => $params,
+        ]);
+
+        return $this->all()->first();
     }
 
     /**
@@ -78,11 +82,36 @@ class TodoistTaskRepository implements TaskContract
     public function update($id, array $input)
     {
         $task = $this->find($id);
+        $done = array_get($input, 'done');
 
-        $task->fill($input);
-        $task->save();
+        if (array_has($input, 'name')) {
+            $params = $this->setClientParamsByAction('item_update', [
+                'id'      => $id,
+                'content' => array_get($input, 'name'),
+            ]);
 
-        return $task;
+            $response = $this->client->post('sync', [
+                'form_params' => $params,
+            ]);
+        }
+
+        if (! is_null($done) and $done != $task->done) {
+            if ($done == true) {
+                $params = $this->setClientParamsByAction('item_complete', [
+                    'ids' => [(int) $id],
+                ]);
+            } else {
+                $params = $this->setClientParamsByAction('item_uncomplete', [
+                    'ids' => [(int) $id],
+                ]);
+            }
+
+            $response = $this->client->post('sync', [
+                'form_params' => $params,
+            ]);
+        }
+
+        return $this->all()->first();
     }
 
     /**
@@ -93,7 +122,111 @@ class TodoistTaskRepository implements TaskContract
      */
     public function delete($id)
     {
-        $task = $this->find($id);
-        $task->delete();
+        $params = $this->setClientParamsByAction('item_delete', [
+            'ids' => [(int) $id],
+        ]);
+
+        $response = $this->client->post('sync', [
+            'form_params' => $params,
+        ]);
+    }
+
+    /**
+     * Istanza del Client HTTP.
+     *
+     * @return \GuzzleHttp\Client
+     */
+    public function getClient()
+    {
+        $client = new Client([
+            'base_uri' => 'https://todoist.com/API/v6/',
+            'query'    => [
+                'token'          => $this->token,
+                'project_id'     => $this->projectId,
+                'seq_no'         => 0,
+                'seq_no_global'  => 0,
+                'resource_types' => json_encode(['all']),
+            ],
+        ]);
+
+        return $client;
+    }
+
+    /**
+     * Prepara i parametri del CLient HTTP per eseguire le
+     * richieste alle API.
+     *
+     * @param string $action
+     * @param array  $fields
+     */
+    protected function setClientParamsByAction($action, array $fields)
+    {
+        $args = array_merge($fields, [
+            'project_id' => $this->projectId,
+        ]);
+
+        $commands = [
+            'type' => $action,
+            'uuid' => Uuid::uuid4()->toString(),
+            'args' => $args,
+        ];
+
+        if ($action === 'item_add') {
+            $commands['temp_id'] = Uuid::uuid4()->toString();
+        }
+
+        return [
+            'commands' => json_encode([$commands]),
+        ];
+    }
+
+    /**
+     * Ritorna una risorsa Task in base alla risposta
+     * ottenuta dalla richiesta alle API.
+     *
+     * @param  \GuzzleHttp\Psr7\Response $response
+     * @return Illuminate\Support\Collection
+     */
+    protected function getTaskResource(Response $response)
+    {
+        $data = json_decode($response->getBody());
+        $user = $this->getUserResource($response);
+
+        $result = [];
+
+        foreach ($data->Items as $item) {
+            $task = new Task;
+            $task->id = $item->id;
+            $task->name = $item->content;
+            $task->done = $item->is_archived;
+            $task->created_at = Carbon::parse($item->date_added);
+            $task->updated_at = Carbon::parse($item->date_added);
+            $task->author = $user;
+
+            $result[$item->id] = $task;
+        }
+
+        return new Collection($result);
+    }
+
+    /**
+     * Ritorna una risorsa User in base alla risposta
+     * ottenuta dalla richiesta alle API.
+     *
+     * @param  \GuzzleHttp\Psr7\Response $response
+     * @return Illuminate\Support\Collection
+     */
+    protected function getUserResource(Response $response)
+    {
+        $data = json_decode($response->getBody());
+        $user = new User;
+
+        $user->id = $data->UserId;
+        $user->name = $data->User->full_name;
+        $user->email = $data->User->email;
+        $user->created_at = Carbon::parse($data->User->join_date);
+        $user->updated_at = Carbon::parse($data->User->join_date);
+
+        return $user;
     }
 }
