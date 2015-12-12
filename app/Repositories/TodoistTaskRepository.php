@@ -19,10 +19,10 @@ class TodoistTaskRepository implements TaskContract
 
     public function __construct()
     {
-        $this->client = $this->getClient();
-
         $this->token = env('TODOIST_TOKEN');
         $this->projectId = env('TODOIST_PROJECT');
+
+        $this->client = $this->getClient($this->token, $this->projectId);
     }
 
     /**
@@ -136,13 +136,13 @@ class TodoistTaskRepository implements TaskContract
      *
      * @return \GuzzleHttp\Client
      */
-    public function getClient()
+    public function getClient($token, $projectId)
     {
         $client = new Client([
             'base_uri' => 'https://todoist.com/API/v6/',
             'query'    => [
-                'token'          => $this->token,
-                'project_id'     => $this->projectId,
+                'token'          => $token,
+                'project_id'     => $projectId,
                 'seq_no'         => 0,
                 'seq_no_global'  => 0,
                 'resource_types' => json_encode(['all']),
