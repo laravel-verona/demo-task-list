@@ -199,7 +199,7 @@ return [
         'View'      => Illuminate\Support\Facades\View::class,
 
         /*
-         * Packages Service Providers...
+         * Packages Alias...
          */
         'Form'      => Collective\Html\FormFacade::class,
         'Html'      => Collective\Html\HtmlFacade::class,
