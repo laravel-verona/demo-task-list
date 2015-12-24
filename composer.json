@@ -9,7 +9,7 @@
         "laravel/framework": "5.2.*",
         "guzzlehttp/guzzle": "^6.1",
         "ramsey/uuid": "^3.1",
-        "laravelcollective/html": "dev-master",
+        "laravelcollective/html": "5.2.*",
         "barryvdh/laravel-debugbar": "^2.1"
     },
     "require-dev": {
