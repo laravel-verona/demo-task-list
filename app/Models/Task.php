@@ -16,15 +16,16 @@ class Task extends BaseModel
      *
      * @var array
      */
-    protected $fillable = ['name', 'done'];
+    protected $fillable = [
+        'name', 'done'
+    ];
 
-    /*
-    |--------------------------------------------------------------------------
-    | RELATIONSHIPS
-    |--------------------------------------------------------------------------
-    */
-    public function author()
-    {
-        return $this->belongsTo(User::class, 'created_by');
-    }
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = [
+        'author'
+    ];
 }

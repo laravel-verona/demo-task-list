@@ -54,7 +54,7 @@ class BaseModel extends Model
      *
      * @return User
      */
-    public function creator()
+    public function author()
     {
         if ($this->authors) {
             return User::find($this->created_by);
@@ -95,9 +95,9 @@ class BaseModel extends Model
      *
      * @return User
      */
-    public function getCreatorAttribute()
+    public function getAuthorAttribute()
     {
-        return $this->creator();
+        return $this->author();
     }
 
     /**
