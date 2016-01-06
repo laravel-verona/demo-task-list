@@ -34,3 +34,12 @@ Route::group(['middleware' => ['web']], function () {
     Route::resource('tasks', 'TaskController', ['only' => ['index', 'store', 'update', 'destroy']]);
     Route::resource('users', 'UserController', ['only' => ['index']]);
 });
+
+/*
+|--------------------------------------------------------------------------
+| API Routes
+|--------------------------------------------------------------------------
+*/
+Route::group(['prefix' => 'api', 'middleware' => ['api'], 'namespace' => 'Api'], function () {
+    Route::resource('tasks', 'TaskController');
+});
