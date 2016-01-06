@@ -35,6 +35,16 @@ class DbTaskRepository implements TaskContract
     }
 
     /**
+     * Tutti i Tasks suddivisi per pagina.
+     *
+     * @return \Illuminate\Pagination\LengthAwarePaginator
+     */
+    public function paginate($perPage = 5)
+    {
+        return $this->model->orderBy('created_at', 'desc')->paginate($perPage);
+    }
+
+    /**
      * Trova un Task.
      *
      * @param  int $id
