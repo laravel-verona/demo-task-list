@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Requests;
+use App\Transformers\TaskTransformer;
 use App\Contracts\TaskContract as TaskRepository;
 
 class TaskController extends ApiController
@@ -25,7 +26,7 @@ class TaskController extends ApiController
     {
         $tasks = $this->taskRepository->all();
 
-        return $tasks;
+        return $this->apiCollection($tasks, new TaskTransformer);
     }
 
     /**
@@ -39,7 +40,7 @@ class TaskController extends ApiController
         $name = $request->get('name');
         $task = $this->taskRepository->create(compact('name'));
 
-        return $task;
+        return $this->apiItem($task, new TaskTransformer);
     }
 
     /**
@@ -52,7 +53,7 @@ class TaskController extends ApiController
     {
         $task = $this->taskRepository->find($id);
 
-        return $task;
+        return $this->apiItem($task, new TaskTransformer);
     }
 
     /**
@@ -74,7 +75,7 @@ class TaskController extends ApiController
 
         $task = $this->taskRepository->update($id, $input);
 
-        return $task;
+        return $this->apiItem($task, new TaskTransformer);
     }
 
     /**
