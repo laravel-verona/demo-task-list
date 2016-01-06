@@ -23,7 +23,9 @@ class TaskController extends ApiController
      */
     public function index()
     {
-        return $this->taskRepository->all();
+        $tasks = $this->taskRepository->all();
+
+        return $tasks;
     }
 
     /**
@@ -48,7 +50,9 @@ class TaskController extends ApiController
      */
     public function show($id)
     {
-        return $this->taskRepository->find($id);
+        $task = $this->taskRepository->find($id);
+
+        return $task;
     }
 
     /**
