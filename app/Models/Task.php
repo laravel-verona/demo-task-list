@@ -17,7 +17,7 @@ class Task extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'name', 'done'
+        'name', 'done',
     ];
 
     /**
@@ -26,6 +26,6 @@ class Task extends BaseModel
      * @var array
      */
     protected $appends = [
-        'author'
+        'author',
     ];
 }
