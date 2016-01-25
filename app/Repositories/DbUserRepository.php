@@ -63,6 +63,8 @@ class DbUserRepository implements UserContract
      */
     public function create(array $input)
     {
+        $input['password'] = bcrypt($input['password']);
+
         return $this->model->create($input);
     }
 
@@ -76,6 +78,10 @@ class DbUserRepository implements UserContract
     public function update($id, array $input)
     {
         $task = $this->find($id);
+
+        if (isset($input['password'])) {
+            $input['password'] = bcrypt($input['password']);
+        }
 
         $task->fill($input);
         $task->save();
