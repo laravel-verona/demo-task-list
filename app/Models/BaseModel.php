@@ -57,7 +57,7 @@ class BaseModel extends Model
     public function author()
     {
         if ($this->authors) {
-            return User::find($this->created_by);
+            return $this->hasOne(User::class, 'id', 'created_by');
         }
     }
 
@@ -69,7 +69,7 @@ class BaseModel extends Model
     public function editor()
     {
         if ($this->authors) {
-            return User::find($this->updated_by);
+            return $this->hasOne(User::class, 'id', 'updated_by');
         }
     }
 
@@ -81,42 +81,7 @@ class BaseModel extends Model
     public function trasher()
     {
         if ($this->authors and $this->forceDeleting === false) {
-            return User::find($this->deleted_by);
+            return $this->hasOne(User::class, 'id', 'deleted_by');
         }
-    }
-
-    /*
-    |--------------------------------------------------------------------------
-    | ACCESSORS & MUTATORS
-    |--------------------------------------------------------------------------
-    */
-    /**
-     * Utente che ha creato il record.
-     *
-     * @return User
-     */
-    public function getAuthorAttribute()
-    {
-        return $this->author();
-    }
-
-    /**
-     * Utente che ha aggiornato il record.
-     *
-     * @return User
-     */
-    public function getEditorAttribute()
-    {
-        return $this->editor();
-    }
-
-    /**
-     * Utente che ha eliminato il record.
-     *
-     * @return User
-     */
-    public function getTrasherAttribute()
-    {
-        return $this->trasher();
     }
 }

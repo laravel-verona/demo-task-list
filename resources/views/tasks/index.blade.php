@@ -44,6 +44,7 @@
                         </td>
                         <td class="col-md-3">
                             {{ $task->author ? $task->author->name : null }}
+
                             <div class="text-muted">
                                 <small>{{ $task->created_at }}</small>
                             </div>

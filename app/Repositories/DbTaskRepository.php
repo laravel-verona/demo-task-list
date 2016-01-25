@@ -31,7 +31,7 @@ class DbTaskRepository implements TaskContract
      */
     public function all()
     {
-        return $this->model->orderBy('created_at', 'desc')->get();
+        return $this->model->with('author')->orderBy('created_at', 'desc')->get();
     }
 
     /**
@@ -41,7 +41,7 @@ class DbTaskRepository implements TaskContract
      */
     public function paginate($perPage = 5)
     {
-        return $this->model->orderBy('created_at', 'desc')->paginate($perPage);
+        return $this->model->with('author')->orderBy('created_at', 'desc')->paginate($perPage);
     }
 
     /**
