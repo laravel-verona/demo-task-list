@@ -25,11 +25,11 @@ abstract class ApiController extends BaseController
 
     public function __construct()
     {
-        $this->logged = app('auth')->user();
+        $this->logged = app('auth')->guard('api')->user();
     }
 
     /**
-     * Applica Fractal per una singola risorsa
+     * Applica Fractal per una singola risorsa.
      *
      * @param  object $data
      * @param  object $transformer
@@ -44,7 +44,7 @@ abstract class ApiController extends BaseController
     }
 
     /**
-     * Applica Fractal per un elenco di risorse
+     * Applica Fractal per un elenco di risorse.
      *
      * @param  object $data
      * @param  object $transformer

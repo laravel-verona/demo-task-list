@@ -40,6 +40,6 @@ Route::group(['middleware' => ['web']], function () {
 | API Routes
 |--------------------------------------------------------------------------
 */
-Route::group(['prefix' => 'api', 'middleware' => ['api'], 'namespace' => 'Api'], function () {
+Route::group(['prefix' => 'api', 'middleware' => ['auth:api', 'api'], 'namespace' => 'Api'], function () {
     Route::resource('tasks', 'TaskController');
 });

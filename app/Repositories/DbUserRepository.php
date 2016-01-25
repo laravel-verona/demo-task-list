@@ -64,6 +64,7 @@ class DbUserRepository implements UserContract
     public function create(array $input)
     {
         $input['password'] = bcrypt($input['password']);
+        $input['api_token'] = str_random(60);
 
         return $this->model->create($input);
     }
