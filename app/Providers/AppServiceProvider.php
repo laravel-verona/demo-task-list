@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Contracts\UserContract;
 use App\Contracts\TaskContract;
 use Illuminate\Support\ServiceProvider;
+use App\Repositories\DbUserRepository;
 use App\Repositories\DbTaskRepository;
 use App\Repositories\TodoistTaskRepository;
 
@@ -26,10 +28,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        // Tasks su DB
         $this->app->bind(TaskContract::class, DbTaskRepository::class);
+        $this->app->bind(UserContract::class, DbUserRepository::class);
 
-        // Tasks so Todoist
         // $this->app->bind(TaskContract::class, TodoistTaskRepository::class);
     }
 }

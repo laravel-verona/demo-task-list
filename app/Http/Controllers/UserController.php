@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Contracts\UserContract as UserRepository;
 
 class UserController extends Controller
 {
@@ -11,9 +11,9 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(UserRepository $userRepo)
     {
-        $users = User::orderBy('name')->get();
+        $users = $userRepo->all();
 
         return view('users.index', compact('users'));
     }
