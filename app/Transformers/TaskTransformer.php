@@ -17,7 +17,7 @@ class TaskTransformer extends TransformerAbstract
         return [
             'id'         => $task->id,
             'name'       => $task->name,
-            'done'       => $task->done,
+            'done'       => (bool) $task->done,
             'created_at' => $task->created_at->toIso8601String(),
             'updated_at' => $task->updated_at->toIso8601String(),
             'author'     => $task->author,
