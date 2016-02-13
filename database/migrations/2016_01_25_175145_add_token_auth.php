@@ -12,7 +12,7 @@ class AddTokenAuth extends Migration
     public function up()
     {
         Schema::table('users', function ($table) {
-            $table->string('api_token', 60)->unique();
+            $table->string('api_token', 60)->unique()->default('');
         });
     }
 

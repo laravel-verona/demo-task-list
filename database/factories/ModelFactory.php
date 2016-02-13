@@ -19,3 +19,12 @@ $factory->define(App\Models\User::class, function (Faker\Generator $faker) {
         'api_token' => str_random(60),
     ];
 });
+
+$factory->define(App\Models\Task::class, function (Faker\Generator $faker) {
+    return [
+        'name'          => $faker->words(3, true),
+        'done'          => rand(0,1),
+        'created_by'    => factory(\App\Models\User::class)->create()->id
+    ];
+});
+
