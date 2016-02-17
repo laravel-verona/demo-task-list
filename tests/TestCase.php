@@ -22,4 +22,19 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
 
         return $app;
     }
+
+    protected function mock($class)
+    {
+        $mock = Mockery::mock($class);
+        $this->app->instance($class, $mock);
+
+        return $mock;
+    }
+
+    protected function buildUser()
+    {
+        $user = factory(App\Models\User::class)->create();
+
+        return $user;
+    }
 }
