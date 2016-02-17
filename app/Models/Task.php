@@ -19,13 +19,4 @@ class Task extends BaseModel
     protected $fillable = [
         'name', 'done',
     ];
-
-    /**
-     * The accessors to append to the model's array form.
-     *
-     * @var array
-     */
-    protected $appends = [
-        'author',
-    ];
 }
