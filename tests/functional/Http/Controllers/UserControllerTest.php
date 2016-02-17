@@ -14,9 +14,7 @@ class UserControllerTest extends TestCase
         $userRepository = $this->mock('App\Contracts\UserContract');
         $userRepository->shouldReceive('all')->once()->andReturn($users);
 
-
         $this->get('users');
-
 
         $this->assertViewHas('users');
         $this->assertCount(3, $this->response->getOriginalContent()->users);

@@ -17,9 +17,7 @@ class TaskTransformerTest extends TestCase
 
         $transformer = new \App\Transformers\TaskTransformer();
 
-
         $taskArr = $transformer->transform($task);
-
 
         $this->assertEquals($taskArr['id'], $task->id);
         $this->assertEquals($taskArr['name'], $task->name);

@@ -47,9 +47,10 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $e)
     {
-        if(App::runningUnitTests()) {
+        if (App::runningUnitTests()) {
             return parent::renderForConsole(new ConsoleOutput(), $e);
         }
+
         return parent::render($request, $e);
     }
 }

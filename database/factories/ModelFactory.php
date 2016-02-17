@@ -23,8 +23,7 @@ $factory->define(App\Models\User::class, function (Faker\Generator $faker) {
 $factory->define(App\Models\Task::class, function (Faker\Generator $faker) {
     return [
         'name'          => $faker->words(3, true),
-        'done'          => rand(0,1),
-        'created_by'    => factory(\App\Models\User::class)->create()->id
+        'done'          => rand(0, 1),
+        'created_by'    => factory(\App\Models\User::class)->create()->id,
     ];
 });
-
