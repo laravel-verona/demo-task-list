@@ -4,6 +4,7 @@ namespace Tests\Functional\Http\Controllers\Api;
 
 use TestCase;
 use Tests\BuildTasksTrait;
+use App\Contracts\TaskContract;
 
 class TaskControllerTest extends TestCase
 {
@@ -21,7 +22,7 @@ class TaskControllerTest extends TestCase
     {
         parent::setUp();
 
-        $this->taskRepository = $this->mock('App\Contracts\TaskContract');
+        $this->taskRepository = $this->mock(TaskContract::class);
     }
 
     /** @test */

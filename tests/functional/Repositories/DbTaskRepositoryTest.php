@@ -2,12 +2,12 @@
 
 namespace Tests\Functional\Repositories;
 
-use App\Models\Task;
-use App\Repositories\DbTaskRepository;
-use Carbon\Carbon;
-use Illuminate\Pagination\LengthAwarePaginator;
 use TestCase;
+use Carbon\Carbon;
+use App\Models\Task;
 use Tests\BuildTasksTrait;
+use App\Repositories\DbTaskRepository;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class DbTaskRepositoryTest extends TestCase
 {
@@ -25,7 +25,7 @@ class DbTaskRepositoryTest extends TestCase
     {
         parent::setUp();
 
-        $this->dbTaskRepository = new DbTaskRepository(new Task());
+        $this->dbTaskRepository = new DbTaskRepository(new Task);
     }
 
     /** @test */

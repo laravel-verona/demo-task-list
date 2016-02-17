@@ -2,10 +2,10 @@
 
 namespace Tests\Functional\Repositories;
 
+use TestCase;
 use App\Models\User;
 use App\Repositories\DbUserRepository;
 use Illuminate\Pagination\LengthAwarePaginator;
-use TestCase;
 
 class DbUserRepositoryTest extends TestCase
 {
@@ -21,7 +21,7 @@ class DbUserRepositoryTest extends TestCase
     {
         parent::setUp();
 
-        $this->dbUserRepository = new DbUserRepository(new User());
+        $this->dbUserRepository = new DbUserRepository(new User);
     }
 
     /** @test */
@@ -104,6 +104,6 @@ class DbUserRepositoryTest extends TestCase
 
     private function buildUsers($count, $attributes = [])
     {
-        return factory(\App\Models\User::class, $count)->create($attributes);
+        return factory(User::class, $count)->create($attributes);
     }
 }

@@ -1,5 +1,8 @@
 <?php
 
+use App\Models\Task;
+use App\Transformers\TaskTransformer;
+
 class TaskTransformerTest extends TestCase
 {
     /**
@@ -13,9 +16,9 @@ class TaskTransformerTest extends TestCase
     /** @test */
     public function it_should_transform_a_task_into_a_generic_array()
     {
-        $task = factory(\App\Models\Task::class)->create();
+        $task = factory(Task::class)->create();
 
-        $transformer = new \App\Transformers\TaskTransformer();
+        $transformer = new TaskTransformer;
 
         $taskArr = $transformer->transform($task);
 
