@@ -27,6 +27,5 @@ class TaskTransformerTest extends TestCase
         $this->assertEquals($taskArr['done'], $task->done);
         $this->assertArrayHasKey('created_at', $taskArr);
         $this->assertArrayHasKey('updated_at', $taskArr);
-        $this->assertArrayHasKey('author', $taskArr);
     }
 }

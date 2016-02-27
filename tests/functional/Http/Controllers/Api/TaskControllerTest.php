@@ -51,7 +51,7 @@ class TaskControllerTest extends TestCase
         $tasks = $this->buildTasks(3);
 
         $this->taskRepository
-            ->shouldReceive('all')
+            ->shouldReceive('paginate')
             ->once()
             ->andReturn($tasks);
 
