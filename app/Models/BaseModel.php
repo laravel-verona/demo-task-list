@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Auth;
 use Illuminate\Database\Eloquent\Model;
 
 class BaseModel extends Model
@@ -22,7 +21,7 @@ class BaseModel extends Model
      */
     public function getLoggedUser()
     {
-        return Auth::user();
+        return app('request')->is('api/*') ? app('auth')->guard('api')->user() : app('auth')->user();
     }
 
     public static function boot()
