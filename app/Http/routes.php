@@ -2,10 +2,10 @@
 
 /*
 |--------------------------------------------------------------------------
-| Routes File
+| Application Routes
 |--------------------------------------------------------------------------
 |
-| Here is where you will register all of the routes in an application.
+| Here is where you can register all of the routes for an application.
 | It's a breeze. Simply tell Laravel the URIs it should respond to
 | and give it the controller to call when that URI is requested.
 |
@@ -15,25 +15,12 @@ Route::get('/', function () {
     return redirect()->route('tasks.index');
 });
 
-/*
-|--------------------------------------------------------------------------
-| Application Routes
-|--------------------------------------------------------------------------
-|
-| This route group applies the "web" middleware group to every route
-| it contains. The "web" middleware group is defined in your HTTP
-| kernel and includes session state, CSRF protection, and more.
-|
-*/
-
-Route::group(['middleware' => ['web']], function () {
-    Route::group(['prefix' => 'auth'], function () {
-        Route::auth();
-    });
-
-    Route::resource('tasks', 'TaskController', ['only' => ['index', 'store', 'update', 'destroy']]);
-    Route::resource('users', 'UserController', ['only' => ['index']]);
+Route::group(['prefix' => 'auth'], function () {
+    Route::auth();
 });
+
+Route::resource('tasks', 'TaskController', ['only' => ['index', 'store', 'update', 'destroy']]);
+Route::resource('users', 'UserController', ['only' => ['index']]);
 
 /*
 |--------------------------------------------------------------------------
